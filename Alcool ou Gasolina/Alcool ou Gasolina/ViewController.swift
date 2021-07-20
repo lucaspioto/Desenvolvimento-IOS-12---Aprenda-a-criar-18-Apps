@@ -21,11 +21,22 @@ class ViewController: UIViewController {
                 // validar valores digitados
                 let validaCampos = self.validarCampos(precoAlcool: precoAlcool, precoGasolina: precoGasolina)
                 
-                if validaCampos {
+                if validaCampos == "álcool e gasolina" {
+                    
+                    self.legendaResultado.text = "Digite o preço do álcool e da gasolina!"
+                }
+                
+                else if validaCampos == "álcool" {
+                    
+                    self.legendaResultado.text = "Digite o preço do álcool!"
+                    
+                } else if validaCampos == "gasolina" {
+                    
+                    legendaResultado.text = "Digite o preço da gasolina!"
+                    
+                } else {
                     // calcular melhor combustível
                     self.calcularMelhorPreco(precoAlcool: precoAlcool, precoGasolina: precoGasolina)
-                } else {
-                    legendaResultado.text = "Digite os preços para calcular!"
                 }
             }
         }
@@ -54,18 +65,27 @@ class ViewController: UIViewController {
         
     }
     
-    func validarCampos(precoAlcool: String, precoGasolina: String) -> Bool {
+    func validarCampos(precoAlcool: String, precoGasolina: String) -> String {
         
-        var camposValidados = true
+        var camposValidados = ""
         
-        if precoAlcool.isEmpty {
-            camposValidados = false
+        if precoAlcool.isEmpty && precoGasolina.isEmpty {
+            camposValidados = "álcool e gasolina"
+        }
+        else if precoAlcool.isEmpty {
+            camposValidados = "álcool"
         } else if precoGasolina.isEmpty {
-            camposValidados = false
+            camposValidados = "gasolina"
         }
         
         return camposValidados
         
+    }
+    
+    
+    @IBAction func limpar(_ sender: Any) {
+        precoAlcoolCampo.text = ""
+        precoGasolinaCampo.text = ""
     }
     
     override func viewDidLoad() {
